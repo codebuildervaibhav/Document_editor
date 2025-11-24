@@ -1,0 +1,57 @@
+Project Overview
+This project is a modern, web-based document editor built using React and the Tiptap editor framework. It provides a user-friendly interface for creating and editing rich text documents with features like text formatting, headings, lists, tables, images, and links. The project is set up using Vite, a fast build tool for modern web development.
+
+Core Technologies
+React: A JavaScript library for building user interfaces. It allows for the creation of reusable UI components, which is perfect for an application like a document editor with different UI elements like a toolbar, bubble menu, and the editor itself.
+Vite: A modern and extremely fast build tool. It provides a faster development experience with features like Hot Module Replacement (HMR) and optimized builds for production.
+Tiptap: A headless, framework-agnostic rich text editor toolkit. "Headless" means it doesn't come with any pre-built UI, giving developers full control over the editor's appearance and behavior. It's based on Prosemirror, a powerful toolkit for building rich text editors.
+Sass: A CSS preprocessor that adds features like variables, nesting, and mixins to CSS, making stylesheets more maintainable and organized.
+React Icons: A library that provides a vast collection of popular icons as React components, making it easy to add icons to the UI.
+File Structure and Explanation
+Here's a breakdown of the files and their roles in the project:
+
+index.html: This is the main HTML file and the entry point for the application. It contains a single <div id="root"></div> where the entire React application will be mounted. The <script type="module" src="/src/main.jsx"></script> tag loads and executes the main JavaScript file for the React application.
+
+package.json: This file contains metadata about the project, such as its name, version, and dependencies. It also defines scripts for running development servers, building the project, and linting the code.
+
+vite.config.js: This is the configuration file for Vite. It's used to customize Vite's behavior, such as adding plugins. In this project, it's configured to use the @vitejs/plugin-react plugin, which enables React support in Vite.
+
+main.jsx: This is the starting point of the React application. It uses ReactDOM.createRoot() to render the main App component into the <div id="root"></div> element in index.html.
+
+App.jsx: This is the main application component. It's a simple component that renders the TiptapEditor component, which is the core of the document editor.
+
+TiptapEditor.jsx: This is the most important component in the project. It uses the useEditor hook from @tiptap/react to create and configure an instance of the Tiptap editor. It defines the extensions that the editor will use, such as StarterKit (for basic text formatting), Table, Image, Link, etc. It also renders the Toolbar, BubbleMenu, and the EditorContent itself.
+
+Toolbar.jsx: This component renders the toolbar at the top of the editor. It receives the editor instance as a prop and uses it to trigger commands like toggling bold, italic, adding a table, etc. It uses react-icons for the toolbar buttons.
+
+BubbleMenu.jsx: This component renders a floating menu that appears when you select text in the editor. It's also from Tiptap and is configured to show buttons for basic text formatting like bold, italic, and strikethrough.
+
+editor.scss: This file contains the Sass styles for the editor, toolbar, and other components. It defines the layout, colors, and overall look and feel of the document editor.
+
+index.css: This file contains global CSS styles for the application, such as setting the base font and background color for the entire page.
+
+Dependencies Explanation
+Production Dependencies:
+react & react-dom: The core libraries for building the React application.
+@tiptap/react: Provides React components and hooks for integrating Tiptap into a React application.
+@tiptap/pm: The underlying Prosemirror library that Tiptap is built on.
+@tiptap/starter-kit: A collection of the most common Tiptap extensions to get you started quickly (bold, italic, headings, etc.).
+@tiptap/extension-*: Various Tiptap extensions for adding specific features like tables, images, links, and text alignment.
+sass: The Sass compiler to process the .scss files into CSS.
+react-icons: Provides a wide variety of icons as React components.
+Development Dependencies:
+@vitejs/plugin-react: The Vite plugin for React support.
+eslint and eslint-plugin-*: Tools for linting the code to ensure code quality and consistency.
+vite: The build tool and development server.
+How it all works together
+When you open the application in a browser, index.html is loaded.
+The script tag in index.html loads and executes main.jsx.
+main.jsx renders the App component into the <div id="root">.
+The App component renders the TiptapEditor component.
+TiptapEditor.jsx initializes the Tiptap editor with all the configured extensions.
+The Toolbar and BubbleMenu components are rendered and passed the editor instance.
+These components use the editor instance to check the current state of the editor (e.g., is the selected text bold?) and to execute commands (e.g., make the selected text bold).
+The EditorContent component renders the actual editable area.
+The styles from editor.scss and index.css are applied to give the editor its final appearance.
+In summary, this project is a well-structured and modern implementation of a document editor, leveraging the power of React and Tiptap to provide a rich and extensible editing experience.
+
