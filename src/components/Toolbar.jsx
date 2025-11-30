@@ -2,7 +2,8 @@ import React, { useCallback } from 'react'
 import { 
   FaBold, FaItalic, FaStrikethrough, FaListUl, FaListOl, 
   FaQuoteRight, FaUndo, FaRedo, FaAlignLeft, FaAlignCenter, 
-  FaAlignRight, FaAlignJustify, FaTable, FaImage, FaLink, FaUnlink
+  FaAlignRight, FaAlignJustify, FaTable, FaImage, FaLink, FaUnlink,
+  FaFilePdf, FaFileCode, FaFileDownload
 } from 'react-icons/fa'
 
 export const Toolbar = ({ editor }) => {
@@ -34,6 +35,33 @@ export const Toolbar = ({ editor }) => {
 
     // update link
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+  }, [editor])
+
+  const saveAsPDF = useCallback(() => {
+    // Use browser's print dialog to save as PDF
+    window.print()
+  }, [])
+
+  const saveAsHTML = useCallback(() => {
+    const html = editor.getHTML()
+    const blob = new Blob([html], { type: 'text/html' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'document.html'
+    a.click()
+    URL.revokeObjectURL(url)
+  }, [editor])
+
+  const saveAsJSON = useCallback(() => {
+    const json = JSON.stringify(editor.getJSON(), null, 2)
+    const blob = new Blob([json], { type: 'application/json' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = 'document.json'
+    a.click()
+    URL.revokeObjectURL(url)
   }, [editor])
 
   const isTable = editor.isActive('table')
@@ -201,6 +229,21 @@ export const Toolbar = ({ editor }) => {
             <button onClick={() => editor.chain().focus().deleteTable().run()} style={{color: '#d32f2f'}} title="Delete Table">Del</button>
           </>
         )}
+      </div>
+
+      <div className="divider" />
+
+      {/* Save/Export */}
+      <div className="button-group">
+        <button onClick={saveAsPDF} title="Print to PDF">
+          <FaFilePdf /> PDF
+        </button>
+        <button onClick={saveAsHTML} title="Save as HTML">
+          <FaFileCode /> HTML
+        </button>
+        <button onClick={saveAsJSON} title="Save as JSON">
+          <FaFileDownload /> JSON
+        </button>
       </div>
     </div>
   )
